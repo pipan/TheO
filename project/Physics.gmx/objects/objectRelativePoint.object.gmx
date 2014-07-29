@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objectPoint</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,12 +26,73 @@
           <argument>
             <kind>1</kind>
             <string>///construct
-acceleration = instance_create(x, y, objectVector);
-velocity = instance_create(x, y, objectVector);
-rotation = instance_create(x, y, objectVector);
-circleCenterPoint = 0;
-frictionMove = 0;
-frictionCollision = 0;
+event_inherited();
+anchor = 0;
+forces = ds_list_create();
+relativePosition = instance_create(x, y, objectVector);
+defaultPosition = instance_create(x, y, objectVector);
+initialPosition = instance_create(x, y, objectVector);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///move
+//prve pozriet vsetky sily
+var f;
+for (var i = 0; i &lt; ds_list_size(forces); i++){
+    f = forces[| i];
+    if (f.apply == 0){
+       ds_list_delete(forces, i);
+       instance_deactivate_object(f);
+    }
+    else{
+         addVector(acceleration, f.force);
+         f.apply--;
+    }
+}
+addVector(velocity, acceleration);
+//najskor pozret ci mam zrychlenie
+if (acceleration.value &lt;= 0){
+   if (velocity.value &gt; 0){
+      velocity.value -= anchor.frictionMove;
+   }
+   //ak som mimo pozicie tak sa vratit spat
+   if (compareVector(relativePosition, defaultPosition) == false){
+      anchorAttract(anchor, relativePosition, defaultPosition);
+   }
+   else{
+        relativePosition.value = defaultPosition.value;
+        relativePosition.normX = defaultPosition.normX;
+        relativePosition.normY = defaultPosition.normY;
+   }
+}
+else{
+     acceleration.value -= anchor.frictionMove;
+}
+//set relative position x, y
+addVector(relativePosition, velocity);
+var relativeAngle = getAngleToX(anchor.rotation) - 90 + getAngleToX(relativePosition);
+x = anchor.x + cos(degtorad(relativeAngle)) * relativePosition.value;
+y = anchor.y + sin(degtorad(relativeAngle)) * relativePosition.value * -1;
+image_angle = anchor.image_angle - getAngleToX(relativePosition);
 </string>
           </argument>
         </arguments>
@@ -55,55 +116,6 @@ frictionCollision = 0;
           <argument>
             <kind>1</kind>
             <string>///Move
-var velocitySign;
-addVector(velocity, acceleration);
-//move in circle
-if (circleCenterPoint != 0){
-    velocitySign = angularVelocitySign(rotation, velocity);
-    angularVelocity = velocitySign * velocity.value / getPerimeter(circleCenterPoint.r) * 360;
-    padRotation -= angularVelocity;
-    image_angle += angularVelocity;
-    setVectorNormByAngle(rotation, padRotation);
-    setVectorNormByVector(velocity, rotation, velocitySign);
-    x = global.centerX + cos(degtorad(padRotation + 90)) * global.innerR;
-    y = global.centerY + sin(degtorad(padRotation + 90)) * global.innerR;
-}
-else{
-     x += getVectorX(velocity);
-     y += getVectorY(velocity);
-}
-event_perform(ev_other, ev_user0);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="73">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///draw point vectors
-if (global.status == 1){
-    draw_set_colour(c_yellow);
-    drawVector(velocity, x, y, 10);
-    draw_set_colour(c_red);
-    drawVector(acceleration, x, y, 10);
-    draw_set_colour(c_green);
-    drawVector(rotation, x, y, 10);
-}
 </string>
           </argument>
         </arguments>

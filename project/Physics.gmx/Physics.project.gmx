@@ -35,7 +35,10 @@
       <script>scripts\getVectorX.gml</script>
       <script>scripts\drawVector.gml</script>
       <script>scripts\vectorConstruct.gml</script>
+      <script>scripts\compareVector.gml</script>
+      <script>scripts\getSubtractVector.gml</script>
     </scripts>
+    <script>scripts\anchorAttract.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\objectPad</object>
@@ -49,8 +52,8 @@
       <object>objects\objectPoint</object>
       <object>objects\objectCenterPoint</object>
       <object>objects\objectAnchor</object>
-      <object>objects\objectSolidPoint</object>
       <object>objects\objectCollisionPoint</object>
+      <object>objects\objectRelativePoint</object>
     </objects>
     <objects name="vector">
       <object>objects\objectVector</object>

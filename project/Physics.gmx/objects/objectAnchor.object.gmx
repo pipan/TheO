@@ -26,6 +26,87 @@
           <argument>
             <kind>1</kind>
             <string>///construct
+event_inherited();
+pin = ds_list_create();
+attract = 1;
+controllUp = vk_up;
+controllDown = vk_down;
+padRotation = -90;
+frictionMove = 0.2;
+frictionCollision = 0.3;
+circleCenterPoint = instance_create(global.centerX, global.centerY, objectCenterPoint);
+circleCenterPoint.r = global.innerR;
+vectorConstruct(rotation, 1, 0, -1, 1, 1, 1);
+setVectorNormByAngle(rotation, padRotation);
+vectorConstruct(acceleration, 0, rotation.normX, rotation.normY, 0.35, 1, 0);
+vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Input
+if (keyboard_check(controllUp) || keyboard_check(controllDown)){
+   //klavesa hore
+    if (keyboard_check(controllUp)){
+       setVectorNormByVector(acceleration, rotation, 1);
+    }
+    //klavesa dole
+    else{
+       setVectorNormByVector(acceleration, rotation, -1);
+    }
+   setVectorValue(acceleration, acceleration.defaultValue);
+}
+else{
+   setVectorValue(acceleration, 0);
+   if (velocity.value &gt; 0){
+      if (velocity.value &lt; frictionMove){
+         velocity.value = 0;
+      }
+      else{
+           velocity.value -= frictionMove;
+      }
+   }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///move
+event_inherited();
 </string>
           </argument>
         </arguments>

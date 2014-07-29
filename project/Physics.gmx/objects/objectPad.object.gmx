@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>objectSolidPoint</parentName>
+  <parentName>objectRelativePoint</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -27,8 +27,9 @@
             <kind>1</kind>
             <string>///construct
 event_inherited();
-controllUp = vk_up;
-controllDown = vk_down;
+vectorConstruct(relativePosition, 0, 1, 0, 0, 20, 0);
+vectorConstruct(defaultPosition, 0, 1, 0, 0, 20, 0);
+vectorConstruct(initialPosition, 0, 1, 0, 0, 20, 0);
 padRotation = -90;
 frictionMove = 0.2;
 frictionCollision = 0.3;
@@ -38,52 +39,6 @@ vectorConstruct(rotation, 1, 0, -1, 1, 1, 1);
 setVectorNormByAngle(rotation, padRotation);
 vectorConstruct(acceleration, 0, rotation.normX, rotation.normY, 0.35, 1, 0);
 vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Input
-if (keyboard_check(controllUp) || keyboard_check(controllDown)){
-   //klavesa hore
-    if (keyboard_check(controllUp)){
-       setVectorNormByVector(acceleration, rotation, 1);
-    }
-    //klavesa dole
-    else{
-       setVectorNormByVector(acceleration, rotation, -1);
-    }
-   setVectorValue(acceleration, acceleration.defaultValue);
-}
-else{
-   setVectorValue(acceleration, 0);
-   if (velocity.value &gt; 0){
-      if (velocity.value &lt; frictionMove){
-         velocity.value = 0;
-      }
-      else{
-           velocity.value -= frictionMove;
-      }
-   }
-}
-event_inherited();
 </string>
           </argument>
         </arguments>
@@ -155,6 +110,34 @@ part_type_life(part1, 4, 4);
 part_type_orientation(part1, other.rotationAlfa, other.rotationAlfa, 0, 0, 0);
 part_particles_create(particle, other.x, other.y, part1, 1);
 */
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///force
+var f = instance_create(x, y, objectForce);
+ds_list_add(forces, f);
+f.apply = 1;
+f.force.value = 3;
+f.force.normX = 1;
+f.force.normY = 0;
+
 </string>
           </argument>
         </arguments>

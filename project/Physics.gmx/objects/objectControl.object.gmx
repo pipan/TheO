@@ -34,7 +34,60 @@ global.innerR = 250;
 arena = instance_create(global.centerX, global.centerY, objectGappyCircle);
 ball = instance_create(global.centerX, global.centerY, objectBall);
 vectorConstruct(ball.velocity, 3, 1, 0, 3, 10, 2);
-player[0] = instance_create(global.centerX + global.innerR, global.centerY, objectPad);
+player[0] = instance_create(global.centerX + global.innerR, global.centerY, objectAnchor);
+pad = instance_create(global.centerX + global.innerR, global.centerY, objectPad);
+ds_list_add(player[0].pin, pad);
+pad.anchor = player[0];
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//event_perform_object(objectPad, ev_other, ev_user0)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="73">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//draw debug
+if (global.status == 1){
+    draw_set_color(c_yellow);
+    draw_text(0, 0, string(fps));
+}
 </string>
           </argument>
         </arguments>
