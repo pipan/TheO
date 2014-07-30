@@ -10,6 +10,9 @@
     <sprite>sprites\spriteGappyCircle</sprite>
     <sprite>sprites\spritePad</sprite>
     <sprite>sprites\spriteBall</sprite>
+    <sprite>sprites\spriteCircleQuarter</sprite>
+    <sprite>sprites\spriteCircleQuarterParticle</sprite>
+    <sprite>sprites\spriteCircleQuarterNeutral</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -39,6 +42,26 @@
       <script>scripts\getSubtractVector.gml</script>
     </scripts>
     <script>scripts\anchorAttract.gml</script>
+    <scripts name="input">
+      <script>scripts\isSetInput.gml</script>
+    </scripts>
+    <scripts name="map">
+      <script>scripts\setGoalAngle.gml</script>
+      <script>scripts\createCircleQuartre.gml</script>
+    </scripts>
+    <scripts name="color">
+      <script>scripts\getOrange.gml</script>
+      <script>scripts\getBlue.gml</script>
+    </scripts>
+    <scripts name="pad">
+      <script>scripts\padCreate.gml</script>
+    </scripts>
+    <script>scripts\setPosition.gml</script>
+    <scripts name="player">
+      <script>scripts\setControll.gml</script>
+      <script>scripts\playerCreate.gml</script>
+    </scripts>
+    <script>scripts\anchorCreate.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\objectPad</object>
@@ -47,6 +70,10 @@
     <objects name="map">
       <object>objects\objectFullCircle</object>
       <object>objects\objectGappyCircle</object>
+      <object>objects\objectCircleQuarter</object>
+      <object>objects\objectArena</object>
+      <object>objects\objectCircleQuarterGoal</object>
+      <object>objects\objectCircleQuarterParticle</object>
     </objects>
     <objects name="point">
       <object>objects\objectPoint</object>
@@ -54,10 +81,14 @@
       <object>objects\objectAnchor</object>
       <object>objects\objectCollisionPoint</object>
       <object>objects\objectRelativePoint</object>
+      <object>objects\objectAnchorAI</object>
     </objects>
     <objects name="vector">
       <object>objects\objectVector</object>
       <object>objects\objectForce</object>
+    </objects>
+    <objects name="player">
+      <object>objects\objectPlayer</object>
     </objects>
   </objects>
   <rooms name="rooms">
