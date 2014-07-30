@@ -31,13 +31,24 @@ global.centerX = 500;
 global.centerY = 350;
 global.outerR = 300;
 global.innerR = 250;
-arena = instance_create(global.centerX, global.centerY, objectGappyCircle);
+global.players = ds_list_create();
+//arenaFull = instance_create(global.centerX, global.centerY, objectGappyCircle);
+global.arena = instance_create(global.centerX, global.centerY, objectArena);
 ball = instance_create(global.centerX, global.centerY, objectBall);
 vectorConstruct(ball.velocity, 3, 1, 0, 3, 10, 2);
-player[0] = instance_create(global.centerX + global.innerR, global.centerY, objectAnchor);
-pad = instance_create(global.centerX + global.innerR, global.centerY, objectPad);
-ds_list_add(player[0].pin, pad);
-pad.anchor = player[0];
+//player 1
+player = instance_create(global.centerX + global.innerR, global.centerY, objectPlayer);
+playerCreate(player, global.arena.parts[| 0], spritePlayerOrange, getOrange(), -90, 0);
+setControll(player.anchor, vk_up, vk_down);
+ds_list_add(global.players, player);
+//player 2
+player = instance_create(global.centerX - global.innerR, global.centerY, objectPlayer);
+playerCreate(player, global.arena.parts[| 0], spritePlayerBlue, getBlue(), 90, 180);
+setControll(player, ord("W"), ord("S"));
+ds_list_add(global.players, player);
+//pridanie branky pre playera
+global.arena.parts[| 0].belongs = global.players[| 0];
+global.arena.parts[| 2].belongs = global.players[| 1];
 </string>
           </argument>
         </arguments>

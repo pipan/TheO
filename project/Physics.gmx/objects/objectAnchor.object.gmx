@@ -29,9 +29,9 @@
 event_inherited();
 pin = ds_list_create();
 attract = 1;
-controllUp = vk_up;
-controllDown = vk_down;
-padRotation = -90;
+controllUp = 0;
+controllDown = 0;
+padRotation = 0;
 frictionMove = 0.2;
 frictionCollision = 0.3;
 circleCenterPoint = instance_create(global.centerX, global.centerY, objectCenterPoint);
@@ -63,9 +63,18 @@ vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
           <argument>
             <kind>1</kind>
             <string>///Input
-if (keyboard_check(controllUp) || keyboard_check(controllDown)){
+if (isSetInput(self)){
+   up = 0;
+   if (keyboard_check(controllUp)){
+      up = 1;
+   }
+   else if (keyboard_check(controllDown)){
+        up = -1;
+   }
+}
+if (up != 0){
    //klavesa hore
-    if (keyboard_check(controllUp)){
+    if (up &gt; 0){
        setVectorNormByVector(acceleration, rotation, 1);
     }
     //klavesa dole
