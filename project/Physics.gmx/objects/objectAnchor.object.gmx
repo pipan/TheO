@@ -31,14 +31,16 @@ pin = ds_list_create();
 attract = 1;
 controllUp = 0;
 controllDown = 0;
+controllLeft = 0;
+controllRight = 0;
 padRotation = 0;
-frictionMove = 0.2;
+frictionMove = 0.5;
 frictionCollision = 0.3;
 circleCenterPoint = instance_create(global.centerX, global.centerY, objectCenterPoint);
 circleCenterPoint.r = global.innerR;
 vectorConstruct(rotation, 1, 0, -1, 1, 1, 1);
 setVectorNormByAngle(rotation, padRotation);
-vectorConstruct(acceleration, 0, rotation.normX, rotation.normY, 0.35, 1, 0);
+vectorConstruct(acceleration, 0, rotation.normX, rotation.normY, 0.5, 1, 0);
 vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
 </string>
           </argument>
@@ -63,13 +65,41 @@ vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
           <argument>
             <kind>1</kind>
             <string>///Input
+var up = 0;
+var goal = -1;
+//set goal
 if (isSetInput(self)){
-   up = 0;
    if (keyboard_check(controllUp)){
-      up = 1;
+      goal = 90;
    }
    else if (keyboard_check(controllDown)){
-        up = -1;
+        goal = 270;
+   }
+   else if (keyboard_check(controllLeft)){
+        goal = 180;
+   }
+   else if (keyboard_check(controllRight)){
+        goal = 0;
+   }
+}
+//find path
+if (goal &gt;= 0){
+   var differance = image_angle - goal;
+   if (differance &gt; 0){
+      if (differance &lt;= 180){
+         up = -1;
+      }
+      else if (differance &gt; 180){
+          up = 1
+      }
+   }
+   else if (differance &lt; 0){
+        if (differance &gt;= -180){
+           up = 1;
+        }
+        else if (differance &lt; -180){
+             up = -1
+        }
    }
 }
 if (up != 0){
@@ -87,10 +117,10 @@ else{
    setVectorValue(acceleration, 0);
    if (velocity.value &gt; 0){
       if (velocity.value &lt; frictionMove){
-         velocity.value = 0;
+         setVectorValue(velocity, 0);
       }
       else{
-           velocity.value -= frictionMove;
+           setVectorValue(velocity, velocity.value - frictionMove);
       }
    }
 }

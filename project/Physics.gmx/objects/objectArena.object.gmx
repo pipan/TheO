@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///construct
+static = false;
 parts = ds_list_create();
 tmp = instance_create(global.centerX, global.centerY, objectCircleQuarterGoal);
 createCircleQuartre(tmp, 0);

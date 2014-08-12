@@ -52,11 +52,14 @@ image_blend = 0;
           <argument>
             <kind>1</kind>
             <string>///goal
-other.x = global.centerX;
-other.y = global.centerY;
-for (var i = 0; i &lt; ds_list_size(global.players); i++){
-    if (ds_list_find_value(global.players, i) != belongs){
-       global.players[| i].score++;
+if (collision_circle(global.centerX, global.centerY, global.outerR - other.maskWidth, objectBall, false, true) == noone){
+    other.x = global.centerX;
+    other.y = global.centerY;
+    other.velocity.value = other.velocity.defaultValue;
+    for (var i = 0; i &lt; ds_list_size(global.players); i++){
+        if (ds_list_find_value(global.players, i) != belongs){
+           global.players[| i].scoreBoard.value++;
+        }
     }
 }
 </string>

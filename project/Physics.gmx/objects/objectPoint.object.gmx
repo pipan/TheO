@@ -32,6 +32,7 @@ rotation = instance_create(x, y, objectVector);
 circleCenterPoint = 0;
 frictionMove = 0;
 frictionCollision = 0;
+maskWidth = 0;
 </string>
           </argument>
         </arguments>
@@ -61,8 +62,8 @@ addVector(velocity, acceleration);
 if (circleCenterPoint != 0){
     velocitySign = angularVelocitySign(rotation, velocity);
     angularVelocity = velocitySign * velocity.value / getPerimeter(circleCenterPoint.r) * 360;
-    padRotation -= angularVelocity;
-    image_angle += angularVelocity;
+    padRotation = getAngle(padRotation - angularVelocity);
+    image_angle = getAngle(image_angle + angularVelocity);
     setVectorNormByAngle(rotation, padRotation);
     setVectorNormByVector(velocity, rotation, velocitySign);
     x = global.centerX + cos(degtorad(padRotation + 90)) * global.innerR;
@@ -72,7 +73,6 @@ else{
      x += getVectorX(velocity);
      y += getVectorY(velocity);
 }
-event_perform(ev_other, ev_user0);
 </string>
           </argument>
         </arguments>
@@ -100,9 +100,9 @@ if (global.status == 1){
     draw_set_colour(c_yellow);
     drawVector(velocity, x, y, 10);
     draw_set_colour(c_red);
-    drawVector(acceleration, x, y, 10);
+    //drawVector(acceleration, x, y, 10);
     draw_set_colour(c_green);
-    drawVector(rotation, x, y, 10);
+    //drawVector(rotation, x, y, 10);
 }
 </string>
           </argument>

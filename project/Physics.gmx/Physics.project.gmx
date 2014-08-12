@@ -13,6 +13,10 @@
     <sprite>sprites\spriteCircleQuarter</sprite>
     <sprite>sprites\spriteCircleQuarterParticle</sprite>
     <sprite>sprites\spriteCircleQuarterNeutral</sprite>
+    <sprite>sprites\spritePadOrange</sprite>
+    <sprite>sprites\spritePadBlue</sprite>
+    <sprite>sprites\spritePadOrangeIdle</sprite>
+    <sprite>sprites\spritePadOrangeBlink</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -21,7 +25,6 @@
   <scripts name="scripts">
     <script>scripts\angularVelocitySign.gml</script>
     <script>scripts\getPerimeter.gml</script>
-    <script>scripts\getAngleToX.gml</script>
     <scripts name="vector">
       <script>scripts\getInverseVector.gml</script>
       <script>scripts\vectorClone.gml</script>
@@ -40,14 +43,17 @@
       <script>scripts\vectorConstruct.gml</script>
       <script>scripts\compareVector.gml</script>
       <script>scripts\getSubtractVector.gml</script>
+      <script>scripts\getAngleToX.gml</script>
+      <script>scripts\getAngleToVector.gml</script>
+      <script>scripts\destroyVector.gml</script>
     </scripts>
-    <script>scripts\anchorAttract.gml</script>
     <scripts name="input">
       <script>scripts\isSetInput.gml</script>
     </scripts>
     <scripts name="map">
       <script>scripts\setGoalAngle.gml</script>
       <script>scripts\createCircleQuartre.gml</script>
+      <script>scripts\arenaCreate.gml</script>
     </scripts>
     <scripts name="color">
       <script>scripts\getOrange.gml</script>
@@ -55,14 +61,28 @@
     </scripts>
     <scripts name="pad">
       <script>scripts\padCreate.gml</script>
+      <script>scripts\padCollisionTop.gml</script>
     </scripts>
     <script>scripts\setPosition.gml</script>
     <scripts name="player">
       <script>scripts\setControll.gml</script>
       <script>scripts\playerCreate.gml</script>
+      <script>scripts\setScoreBoardXY.gml</script>
+      <script>scripts\playerAddAbility.gml</script>
     </scripts>
-    <script>scripts\anchorCreate.gml</script>
+    <scripts name="anchor">
+      <script>scripts\anchorCreate.gml</script>
+      <script>scripts\anchorAttract.gml</script>
+    </scripts>
+    <scripts name="abilities">
+      <script>scripts\createAbility.gml</script>
+      <script>scripts\setAbility.gml</script>
+    </scripts>
+    <script>scripts\getAngle.gml</script>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\shaderTest.shader</shader>
+  </shaders>
   <objects name="objects">
     <object>objects\objectPad</object>
     <object>objects\objectControl</object>
@@ -89,6 +109,11 @@
     </objects>
     <objects name="player">
       <object>objects\objectPlayer</object>
+      <object>objects\objectScoreBoard</object>
+    </objects>
+    <objects name="abilities">
+      <object>objects\objectAbiliy</object>
+      <object>objects\objectAbilityBlink</object>
     </objects>
   </objects>
   <rooms name="rooms">

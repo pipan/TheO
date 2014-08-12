@@ -54,25 +54,28 @@ initialPosition = instance_create(x, y, objectVector);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///move
+            <string>///relative move
 //prve pozriet vsetky sily
-var f;
+setVectorValue(acceleration, 0);
+var tmpF;
 for (var i = 0; i &lt; ds_list_size(forces); i++){
-    f = forces[| i];
-    if (f.apply == 0){
-       ds_list_delete(forces, i);
-       instance_deactivate_object(f);
-    }
-    else{
-         addVector(acceleration, f.force);
-         f.apply--;
+    if (instance_exists(forces[| i])){
+        tmpF = forces[| i];
+        if (tmpF.apply &gt; 0){
+             addVector(acceleration, tmpF.force);
+             setVectorValue(tmpF.force, tmpF.force.value - anchor.attract);
+             if (tmpF.apply == 1){
+                ds_list_delete(forces, i);
+             }
+             tmpF.apply--;
+        }
     }
 }
 addVector(velocity, acceleration);
 //najskor pozret ci mam zrychlenie
 if (acceleration.value &lt;= 0){
    if (velocity.value &gt; 0){
-      velocity.value -= anchor.frictionMove;
+      setVectorValue(velocity, velocity.value - anchor.frictionMove);
    }
    //ak som mimo pozicie tak sa vratit spat
    if (compareVector(relativePosition, defaultPosition) == false){
@@ -84,15 +87,12 @@ if (acceleration.value &lt;= 0){
         relativePosition.normY = defaultPosition.normY;
    }
 }
-else{
-     acceleration.value -= anchor.frictionMove;
-}
 //set relative position x, y
 addVector(relativePosition, velocity);
 var relativeAngle = getAngleToX(anchor.rotation) - 90 + getAngleToX(relativePosition);
 x = anchor.x + cos(degtorad(relativeAngle)) * relativePosition.value;
 y = anchor.y + sin(degtorad(relativeAngle)) * relativePosition.value * -1;
-image_angle = anchor.image_angle - getAngleToX(relativePosition);
+image_angle = anchor.image_angle;
 </string>
           </argument>
         </arguments>

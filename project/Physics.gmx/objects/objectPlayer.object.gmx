@@ -30,6 +30,8 @@ anchor = 0;
 sprite = 0;
 color = 0;
 pad = 0;
+scoreBoard = 0;
+abilities = ds_list_create();
 </string>
           </argument>
         </arguments>
