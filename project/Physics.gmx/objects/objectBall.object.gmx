@@ -31,12 +31,13 @@ maskWidth = 14;
 collisionObj = 0;
 collisionTimeOut = 0;
 defaultCollisionTimeOut = 10;
+padCollision = ds_priority_create();
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="0">
+    <event eventtype="3" enumb="1">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -64,6 +65,149 @@ if (collisionTimeOut &gt; 0){
 else{
      collisionObj = 0;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///pad collision
+var collision = -1;
+while (ds_priority_empty(padCollision) == false &amp;&amp; collision == -1){
+   collision = ds_priority_delete_min(padCollision);
+   if (collision != collisionObj){
+      //set collision for ball
+       collisionObj = collision;
+       collisionTimeOut = defaultCollisionTimeOut;
+       //set depth for all pplayers
+       for (var i = 0; i &lt; ds_list_size(global.players); i++){
+            if (global.players[| i].pad == collision){
+               playerSetDepth(global.players[| i], global.players[| i].depth + 1);
+            }
+            else{
+                 playerSetDepth(global.players[| i], -1);
+            }
+        }
+        //set force
+        var f = instance_create(x, y, objectForce);
+        f.apply = 4;
+        setVectorValue(f.force, velocity.value);
+        if (getAngleToVector(velocity, getVectorByPoints(global.centerX, global.centerY, collision.x, collision.y)) &gt;= 90){
+            f.force.normX = 1;    
+        }
+        else{
+            f.force.normX = -1;  
+            ds_priority_clear(padCollision);  
+            exit;
+        }
+        f.force.normY = 0;
+        ds_list_add(collision.forces, f);
+        //reflection
+        var inverseVelocity = getInverseVector(velocity);
+        var inAngle = getAngleToX(inverseVelocity);
+        var centerVector = getVectorByPoints(global.centerX, global.centerY, collision.x, collision.y);
+        var centerAngle = getAngleToX(centerVector);
+        var outAngle = getAngle(360 - inAngle + centerAngle * 2);
+        var newValueX;
+        var newValueY;
+        var newValue;
+        
+        newValueX = cos(degtorad(outAngle)) * velocity.value + collision.anchor.velocity.normX * collision.anchor.velocity.value * collision.frictionCollision;
+        newValueY = sin(degtorad(outAngle)) * -1 * velocity.value + collision.anchor.velocity.normY * collision.anchor.velocity.value * collision.frictionCollision;
+        
+        newValue = sqrt(sqr(newValueX) + sqr(newValueY));
+        //setVectorValue(velocity, newValue);
+        if (velocity.value &gt; 0){
+            velocity.normX = newValueX / newValue;
+            velocity.normY = newValueY / newValue;
+        }
+        else{
+             velocity.normX = 0;
+             velocity.normY = 0;
+        }
+        if (global.status == 1){
+           hit = instance_create(x, y, objectCollisionPoint);
+           hit.inVector = inverseVelocity;
+           hit.centerVector = centerVector;
+           hit.outVector = vectorClone(velocity);
+        }
+        //destroy 
+        else{
+             destroyVector(inverseVelocity);
+             destroyVector(centerVector);
+        }
+        //rotate goal
+        if (global.arena.static == false){
+           setGoalAngle(collision.goal, collision.anchor.image_angle);
+        }
+   }
+   else{
+        collision = -1;
+   }
+}
+ds_priority_clear(padCollision);
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///move
+event_inherited();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="objectPad">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///add collision
+ds_priority_add(padCollision, other.id, other.depth);
+//show_message(string(other.id));
 </string>
           </argument>
         </arguments>

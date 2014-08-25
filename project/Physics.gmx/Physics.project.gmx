@@ -69,6 +69,7 @@
       <script>scripts\playerCreate.gml</script>
       <script>scripts\setScoreBoardXY.gml</script>
       <script>scripts\playerAddAbility.gml</script>
+      <script>scripts\playerSetDepth.gml</script>
     </scripts>
     <scripts name="anchor">
       <script>scripts\anchorCreate.gml</script>
@@ -120,7 +121,7 @@
     <room>rooms\room0</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41869.8124326042</constant>
+    <constant name="GM_build_date">41875.764746794</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

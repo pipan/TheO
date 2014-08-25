@@ -32,6 +32,7 @@ color = 0;
 pad = 0;
 scoreBoard = 0;
 abilities = ds_list_create();
+playerSetDepth(self, -1);
 </string>
           </argument>
         </arguments>

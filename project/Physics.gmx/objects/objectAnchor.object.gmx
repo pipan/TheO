@@ -66,22 +66,36 @@ vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
             <kind>1</kind>
             <string>///Input
 var up = 0;
+var goal_list = ds_list_create();
 var goal = -1;
 //set goal
 if (isSetInput(self)){
    if (keyboard_check(controllUp)){
-      goal = 90;
+      ds_list_add(goal_list, 90);
    }
-   else if (keyboard_check(controllDown)){
-        goal = 270;
+   if (keyboard_check(controllDown)){
+      ds_list_add(goal_list, 270);
    }
-   else if (keyboard_check(controllLeft)){
-        goal = 180;
+   if (keyboard_check(controllLeft)){
+      ds_list_add(goal_list, 180);
    }
-   else if (keyboard_check(controllRight)){
-        goal = 0;
+   if (keyboard_check(controllRight)){
+      if (keyboard_check(controllDown)){
+           ds_list_add(goal_list, 360);
+      }
+      else{
+           ds_list_add(goal_list, 0);
+      }
+   }
+   if (ds_list_size(goal_list) &gt; 0){
+      goal = 0;
+      for (var i = 0; i &lt; ds_list_size(goal_list); i++){
+          goal += goal_list[| i];
+      }
+      goal = goal / ds_list_size(goal_list);
    }
 }
+ds_list_destroy(goal_list);
 //find path
 if (goal &gt;= 0){
    var differance = image_angle - goal;

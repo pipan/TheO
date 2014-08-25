@@ -51,7 +51,7 @@ defaultAngle = 0;
         <arguments>
           <argument>
             <kind>0</kind>
-            <string>other.collisionObj != self</string>
+            <string>other.collisionObj != self.id</string>
           </argument>
         </arguments>
       </action>
@@ -87,7 +87,7 @@ defaultAngle = 0;
             <kind>1</kind>
             <string>///reflection
 if (collision_circle(global.centerX, global.centerY, global.outerR - other.maskWidth, objectBall, false, true) == noone){
-    other.collisionObj = self;
+    other.collisionObj = self.id;
     other.collisionTimeOut = other.defaultCollisionTimeOut;
     var inverseVelocity = getInverseVector(other.velocity);
     var inAngle = getAngleToX(inverseVelocity);
