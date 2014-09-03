@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objectPoint</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,39 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>///construct
-global.status = 1;
-global.centerX = 500;
-global.centerY = 350;
-global.outerR = 300;
-global.innerR = 250;
-global.energyOscilatorPosibility = 1;
-global.energySpawnTime = 2000;
-global.energySpawnNumber = 2;
-global.players = ds_list_create();
-//arenaFull = instance_create(global.centerX, global.centerY, objectGappyCircle);
-global.arena = instance_create(global.centerX, global.centerY, objectArena);
-arenaCreate(global.arena, false);
-ball = instance_create(global.centerX, global.centerY, objectBall);
-vectorConstruct(ball.velocity, 5, 1, 0, 5, 10, 2);
-//player 1
-player = instance_create(global.centerX + global.innerR, global.centerY, objectPlayer);
-playerCreate(player, global.arena.parts[| 0], spritePadOrange, getOrange(), -90, 0);
-setControll(player.anchor, vk_up, vk_down, vk_left, vk_right);
-setScoreBoardXY(player.scoreBoard, global.centerX + global.outerR, global.centerY - global.outerR);
-//player 1 abilities
-playerAddAbility(player, objectAbilityBlink, ord("P"));
-ds_list_add(global.players, player);
-//player 2
-player = instance_create(global.centerX - global.innerR, global.centerY, objectPlayer);
-playerCreate(player, global.arena.parts[| 2], spritePadBlue, getBlue(), 90, 180);
-setControll(player.anchor, ord("W"), ord("S"), ord("A"), ord("D"));
-setScoreBoardXY(player.scoreBoard, global.centerX - global.outerR, global.centerY - global.outerR);
-ds_list_add(global.players, player);
-//pridanie branky pre playera
-global.arena.parts[| 0].belongs = global.players[| 0];
-global.arena.parts[| 2].belongs = global.players[| 1];
-time = current_time;
-spawnEnergyTimeDiff = 0;
+event_inherited();
+pathLength = 0;
+period = 0;
+isOscilating = 1;
 </string>
           </argument>
         </arguments>
@@ -81,20 +52,14 @@ spawnEnergyTimeDiff = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///spawn energy
-var diff = current_time - time;
-time = current_time;
-spawnEnergyTimeDiff += diff;
-if (spawnEnergyTimeDiff &gt;= global.energySpawnTime){
-   spawnEnergyTimeDiff = 0;
-   energySpawn();
+            <string>///oscilation
+if (period != 0 &amp;&amp; velocity.value &gt;= pathLength * 4 / period){
+   inverseVector(acceleration);
 }
 </string>
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="8" enumb="73">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -111,11 +76,10 @@ if (spawnEnergyTimeDiff &gt;= global.energySpawnTime){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///draw debug
-//if (global.status == 1){
-    draw_set_color(c_yellow);
-    draw_text(0, 0, string(fps));
-//}
+            <string>///move
+if (isOscilating == 1){
+   event_inherited();
+}
 </string>
           </argument>
         </arguments>

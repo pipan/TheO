@@ -20,6 +20,7 @@
     <sprites name="mainMenu">
       <sprite>sprites\spriteMMRhomboid</sprite>
     </sprites>
+    <sprite>sprites\spriteEnergy</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -83,6 +84,16 @@
       <script>scripts\setAbility.gml</script>
     </scripts>
     <script>scripts\getAngle.gml</script>
+    <scripts name="oscilator">
+      <script>scripts\oscilatorCreate.gml</script>
+      <script>scripts\oscilatorSetOscilating.gml</script>
+    </scripts>
+    <scripts name="energy">
+      <script>scripts\energySpawn.gml</script>
+    </scripts>
+    <scripts name="random">
+      <script>scripts\isPossible.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shaderTest.shader</shader>
@@ -106,6 +117,7 @@
       <object>objects\objectCollisionPoint</object>
       <object>objects\objectRelativePoint</object>
       <object>objects\objectAnchorAI</object>
+      <object>objects\objectOscilator</object>
     </objects>
     <objects name="vector">
       <object>objects\objectVector</object>
@@ -123,13 +135,14 @@
       <object>objects\objectControllMainMenu</object>
       <object>objects\objectMMRhomboid</object>
     </objects>
+    <object>objects\objectEnergy</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\roomMainMenu</room>
     <room>rooms\room0</room>
+    <room>rooms\roomMainMenu</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41882,9142065625</constant>
+    <constant name="GM_build_date">41885.6368584028</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
