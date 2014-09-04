@@ -31,6 +31,7 @@ sprite = 0;
 color = 0;
 pad = 0;
 scoreBoard = 0;
+energy = 0;
 abilities = ds_list_create();
 playerSetDepth(self, -1);
 </string>

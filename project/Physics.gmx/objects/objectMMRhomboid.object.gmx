@@ -61,9 +61,7 @@ fade = random_range(1000, 2000);
           <argument>
             <kind>1</kind>
             <string>///destroy
-destroyVector(velocity);
-destroyVector(acceleration);
-destroyVector(rotation);
+event_inherited();
 </string>
           </argument>
         </arguments>

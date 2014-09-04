@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>objectPoint</parentName>
+  <parentName>objectCenterPoint</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -27,9 +27,7 @@
             <kind>1</kind>
             <string>///construct
 event_inherited();
-pathLength = 0;
-period = 0;
-isOscilating = 1;
+follow = 0;
 </string>
           </argument>
         </arguments>
@@ -76,34 +74,15 @@ event_inherited();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///oscilation
-if (period != 0 &amp;&amp; velocity.value &gt;= pathLength * 4 / period){
-   inverseVector(acceleration);
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
             <string>///move
-if (isOscilating == 1){
-   event_inherited();
+//nastav smer rychlosti
+if (follow != 0){
+   var tmp = getVectorByPoints(follow.x, follow.y, x, y);
+   velocity.normX = tmp.normX;
+   velocity.normY = tmp.normY;
+   destroyVector(tmp);
 }
+event_inherited();
 </string>
           </argument>
         </arguments>

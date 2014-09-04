@@ -17,6 +17,7 @@ for (i = 0; i < global.energySpawnNumber; i++){
     var isOscilator = random(1);
     //oscilating energy
     if (isPossible(isOscilator, global.energyOscilatorPosibility)){
+       energy.energy = 20;
        var path = random_range(50, circleR);
        var period = random_range(100, 300);
        var normX = random(0.4) - 0.2 + tmp.normX;

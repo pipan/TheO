@@ -33,13 +33,12 @@ controllUp = 0;
 controllDown = 0;
 controllLeft = 0;
 controllRight = 0;
-padRotation = 0;
 frictionMove = 0.5;
 frictionCollision = 0.3;
 circleCenterPoint = instance_create(global.centerX, global.centerY, objectCenterPoint);
 circleCenterPoint.r = global.innerR;
 vectorConstruct(rotation, 1, 0, -1, 1, 1, 1);
-setVectorNormByAngle(rotation, padRotation);
+setVectorNormByAngle(rotation, 0);
 vectorConstruct(acceleration, 0, rotation.normX, rotation.normY, 0.5, 1, 0);
 vectorConstruct(velocity, 0, rotation.normX, rotation.normY, 0, 9, 0);
 </string>

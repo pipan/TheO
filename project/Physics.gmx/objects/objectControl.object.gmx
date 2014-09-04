@@ -26,13 +26,13 @@
           <argument>
             <kind>1</kind>
             <string>///construct
-global.status = 1;
+global.status = 0;
 global.centerX = 500;
 global.centerY = 350;
 global.outerR = 300;
 global.innerR = 250;
-global.energyOscilatorPosibility = 1;
-global.energySpawnTime = 2000;
+global.energyOscilatorPosibility = 0.1;
+global.energySpawnTime = 10000;
 global.energySpawnNumber = 2;
 global.players = ds_list_create();
 //arenaFull = instance_create(global.centerX, global.centerY, objectGappyCircle);
@@ -42,7 +42,7 @@ ball = instance_create(global.centerX, global.centerY, objectBall);
 vectorConstruct(ball.velocity, 5, 1, 0, 5, 10, 2);
 //player 1
 player = instance_create(global.centerX + global.innerR, global.centerY, objectPlayer);
-playerCreate(player, global.arena.parts[| 0], spritePadOrange, getOrange(), -90, 0);
+playerCreate(player, global.arena.parts[| 0], spritePadOrange, getOrange(), 0);
 setControll(player.anchor, vk_up, vk_down, vk_left, vk_right);
 setScoreBoardXY(player.scoreBoard, global.centerX + global.outerR, global.centerY - global.outerR);
 //player 1 abilities
@@ -50,7 +50,7 @@ playerAddAbility(player, objectAbilityBlink, ord("P"));
 ds_list_add(global.players, player);
 //player 2
 player = instance_create(global.centerX - global.innerR, global.centerY, objectPlayer);
-playerCreate(player, global.arena.parts[| 2], spritePadBlue, getBlue(), 90, 180);
+playerCreate(player, global.arena.parts[| 2], spritePadBlue, getBlue(), 180);
 setControll(player.anchor, ord("W"), ord("S"), ord("A"), ord("D"));
 setScoreBoardXY(player.scoreBoard, global.centerX - global.outerR, global.centerY - global.outerR);
 ds_list_add(global.players, player);

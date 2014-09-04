@@ -21,6 +21,9 @@
       <sprite>sprites\spriteMMRhomboid</sprite>
     </sprites>
     <sprite>sprites\spriteEnergy</sprite>
+    <sprites name="particle">
+      <sprite>sprites\spriteParticlePixel</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -74,6 +77,7 @@
       <script>scripts\setScoreBoardXY.gml</script>
       <script>scripts\playerAddAbility.gml</script>
       <script>scripts\playerSetDepth.gml</script>
+      <script>scripts\getPlayerByPad.gml</script>
     </scripts>
     <scripts name="anchor">
       <script>scripts\anchorCreate.gml</script>
@@ -118,6 +122,7 @@
       <object>objects\objectRelativePoint</object>
       <object>objects\objectAnchorAI</object>
       <object>objects\objectOscilator</object>
+      <object>objects\objectFollower</object>
     </objects>
     <objects name="vector">
       <object>objects\objectVector</object>
@@ -135,14 +140,20 @@
       <object>objects\objectControllMainMenu</object>
       <object>objects\objectMMRhomboid</object>
     </objects>
-    <object>objects\objectEnergy</object>
+    <objects name="energy">
+      <object>objects\objectEnergy</object>
+      <object>objects\particleEnergy</object>
+    </objects>
+    <objects name="particle">
+      <object>objects\particlePixel</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
     <room>rooms\roomMainMenu</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41885.6368584028</constant>
+    <constant name="GM_build_date">41886.4697831481</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
