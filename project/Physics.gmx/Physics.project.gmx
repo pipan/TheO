@@ -19,6 +19,13 @@
     <sprite>sprites\spritePadOrangeBlink</sprite>
     <sprites name="mainMenu">
       <sprite>sprites\spriteMMRhomboid</sprite>
+      <sprite>sprites\spriteMMCircle</sprite>
+      <sprite>sprites\spriteMMBorderCircle</sprite>
+      <sprites name="text">
+        <sprite>sprites\spriteMMItemNewGame</sprite>
+        <sprite>sprites\spriteMMItemOptions</sprite>
+        <sprite>sprites\spriteMMItemQuit</sprite>
+      </sprites>
     </sprites>
     <sprite>sprites\spriteEnergy</sprite>
     <sprites name="particle">
@@ -98,13 +105,20 @@
     <scripts name="random">
       <script>scripts\isPossible.gml</script>
     </scripts>
+    <scripts name="point">
+      <script>scripts\setCircleCenter.gml</script>
+    </scripts>
+    <scripts name="mainMenu">
+      <script>scripts\setMMItemAngleByLength.gml</script>
+      <script>scripts\MMItemGroupConstruct.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shaderTest.shader</shader>
   </shaders>
   <objects name="objects">
     <object>objects\objectPad</object>
-    <object>objects\objectControl</object>
+    <object>objects\objectControlArena</object>
     <object>objects\objectBall</object>
     <objects name="map">
       <object>objects\objectFullCircle</object>
@@ -139,6 +153,14 @@
     <objects name="mainMenu">
       <object>objects\objectControllMainMenu</object>
       <object>objects\objectMMRhomboid</object>
+      <object>objects\objectMMBorder</object>
+      <object>objects\objectMMItem</object>
+      <objects name="text">
+        <object>objects\objectMMItemNewGame</object>
+        <object>objects\objectMMItemOptions</object>
+        <object>objects\objectMMItemQuit</object>
+      </objects>
+      <object>objects\objectMMItemGroup</object>
     </objects>
     <objects name="energy">
       <object>objects\objectEnergy</object>
@@ -147,13 +169,14 @@
     <objects name="particle">
       <object>objects\particlePixel</object>
     </objects>
+    <object>objects\objectControl</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
     <room>rooms\roomMainMenu</room>
+    <room>rooms\roomArena</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41886.4697831481</constant>
+    <constant name="GM_build_date">41887,9083314352</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

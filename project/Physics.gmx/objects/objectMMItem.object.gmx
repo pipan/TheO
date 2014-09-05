@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>objectControl</parentName>
+  <parentName>objectPoint</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -27,35 +27,11 @@
             <kind>1</kind>
             <string>///construct
 event_inherited();
-//animacie kosostvorcove
-createRhomboid = random_range(1000, 1500);
-//obvod a stredovy bod
-circleBorderCenter = instance_create(room_width / 2, room_height + global.outerR / 2, objectCenterPoint);
-circleBorder = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMBorder);
-setCircleCenter(circleBorder, circleBorderCenter, global.outerR);
-//index menu items
-indexGroup = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMItemGroup);
-MMItemGroupConstruct(indexGroup, 1, 150, 15, 90, true);
-setCircleCenter(indexGroup, circleBorderCenter, global.outerR + global.menuItemOffset);
-//item 1 - new game
-var item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemNewGame);
-setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
-setMMItemAngleByLength(item, 0);
-item.group = indexGroup;
-ds_list_add(indexGroup.items, item);
-//item 0 - quit
-item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemQuit);
-setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
-setMMItemAngleByLength(item, indexGroup.itemWidth);
-item.group = indexGroup;
-ds_list_add(indexGroup.items, item);
-//item 2 - options
-item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemOptions);
-setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
-setMMItemAngleByLength(item, -indexGroup.itemWidth);
-item.group = indexGroup;
-ds_list_add(indexGroup.items, item);
-time = current_time;
+roomLink = 0;
+index = 0;
+group = 0;
+alphaKoef = 0.2;
+scaleKoef = 0.2;
 </string>
           </argument>
         </arguments>
@@ -78,15 +54,12 @@ time = current_time;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///time
-//subtract time
-createRhomboid -= (current_time - time);
-time = current_time;
-//create rhomboid
-if (createRhomboid &lt;= 0){
-   instance_create(random(room_width), random(room_height), objectMMRhomboid);  
-   //reset time
-   createRhomboid += random_range(1000, 1500);
+            <string>///set opacity and size
+if (group != 0){
+    var diff = abs(group.selected - index);
+    image_alpha = 1 - diff * alphaKoef;
+    image_xscale = 1 - diff * scaleKoef;
+    image_yscale = 1 - diff * scaleKoef;
 }
 </string>
           </argument>

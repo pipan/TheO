@@ -28,11 +28,15 @@
             <string>///construct
 event_inherited();
 //set random velocity
-var value = random(1) + 2;
+var value = random(0.5) + 1;
 vectorConstruct(velocity, value, random(2) - 1, random(2) - 1, value, value, value);
 life = random_range(4000, 8000);
 time = current_time;
-var scale = random(3.75) + 0.25;
+var scale = random(3) + 1;
+var bigger = random(1);
+if (bigger &lt; 0.5){
+   scale = 1 / scale;
+}
 image_xscale = scale;
 image_yscale = scale;
 image_alpha = 0;

@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>objectPoint</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -26,20 +26,21 @@
           <argument>
             <kind>1</kind>
             <string>///construct
-acceleration = instance_create(x, y, objectVector);
-velocity = instance_create(x, y, objectVector);
-rotation = instance_create(x, y, objectVector);
-circleCenterPoint = 0;
-circleR = 0;
-frictionMove = 0;
-frictionCollision = 0;
-maskWidth = 0;
+event_inherited();
+items = ds_list_create();
+selected = 0;
+goal = 0;
+active = false;
+itemWidth = 0;
+switchTime = 0;
+accelerationTime = 0;
+outOfRange = false;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="1" enumb="0">
+    <event eventtype="2" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -56,10 +57,15 @@ maskWidth = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///destroy
-destroyVector(velocity);
-destroyVector(acceleration);
-destroyVector(rotation);
+            <string>///control out of range
+if (goal &lt; 0){
+   goal = 0;
+   outOfRange = true;
+}
+else if (goal &gt; ds_list_size(items) -1){
+     goal = ds_list_size(items) - 1;
+     outOfRange = true;
+}
 </string>
           </argument>
         </arguments>
@@ -82,31 +88,49 @@ destroyVector(rotation);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Move
-var velocitySign;
-var padRotation;
-addVector(velocity, acceleration);
-//move in circle
-if (circleCenterPoint != 0 &amp;&amp; instance_exists(circleCenterPoint)){
-    velocitySign = angularVelocitySign(rotation, velocity);
-    angularVelocity = velocitySign * velocity.value / getPerimeter(circleR) * 360;
-    padRotation = getAngle(360 - image_angle - 90);
-    image_angle = getAngle(image_angle + angularVelocity);
-    setVectorNormByAngle(rotation, padRotation);
-    setVectorNormByVector(velocity, rotation, velocitySign);
-    x = circleCenterPoint.x + cos(degtorad(padRotation + 90)) * circleR;
-    y = circleCenterPoint.y + sin(degtorad(padRotation + 90)) * circleR;
+            <string>///input
+if (active == true){
+    if (keyboard_check(vk_left)){
+       //ak idem opacne =&gt; ak som pred tym stlacil vpraco
+       if (goal &gt; selected &amp;&amp; outOfRange == false){
+          goal = floor(selected)
+       }
+       //ak som este nic nestlacil
+       else if (goal == selected){
+            goal = selected - 1;
+            alarm[0] = 5;
+       }
+    }
+    if (keyboard_check(vk_right)){
+       //ak idem opacne =&gt; ak som pred tym stlacil vlavo
+       if (goal &lt; selected &amp;&amp; outOfRange == false){
+          goal = ceil(selected)
+       }
+       //ak som pred tym nic nestlacil
+       else if (goal == selected){
+            goal = selected + 1;
+            alarm[0] = 5;
+       }
+    }
+}
+if (goal != selected &amp;&amp; abs(goal - selected) &gt;= velocity.value / itemWidth){
+   if (goal &lt; selected){
+       setVectorNormByVector(velocity, rotation, -1);
+    }
+    else{
+         setVectorNormByVector(velocity, rotation, 1);
+    }
+    setVectorValue(velocity, itemWidth / switchTime);
 }
 else{
-     x += getVectorX(velocity);
-     y += getVectorY(velocity);
+     selected = goal;
+     setVectorValue(velocity, 0);
+     outOfRange = false;
 }
 </string>
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="8" enumb="73">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -123,14 +147,33 @@ else{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///draw point vectors
-if (global.status == 1){
-    draw_set_colour(c_yellow);
-    drawVector(velocity, x, y, 10);
-    draw_set_colour(c_red);
-    //drawVector(acceleration, x, y, 10);
-    draw_set_colour(c_green);
-    //drawVector(rotation, x, y, 10);
+            <string>///move
+selected +=   angularVelocitySign(rotation, velocity) * velocity.value / itemWidth;
+event_inherited();
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///set velocity items
+for (var i = 0; i &lt; ds_list_size(items); i++){
+    setVectorValue(items[| i].velocity, velocity.value);
+    setVectorNormByVector(items[| i].velocity, items[| i].rotation,  angularVelocitySign(rotation, velocity));
 }
 </string>
           </argument>
