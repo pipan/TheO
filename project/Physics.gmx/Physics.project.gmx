@@ -25,6 +25,10 @@
         <sprite>sprites\spriteMMItemNewGame</sprite>
         <sprite>sprites\spriteMMItemOptions</sprite>
         <sprite>sprites\spriteMMItemQuit</sprite>
+        <sprite>sprites\spriteMMItemBack</sprite>
+        <sprite>sprites\spriteMMItemVideo</sprite>
+        <sprite>sprites\spriteMMItemAudio</sprite>
+        <sprite>sprites\spriteMMItemControlls</sprite>
       </sprites>
     </sprites>
     <sprite>sprites\spriteEnergy</sprite>
@@ -159,6 +163,10 @@
         <object>objects\objectMMItemNewGame</object>
         <object>objects\objectMMItemOptions</object>
         <object>objects\objectMMItemQuit</object>
+        <object>objects\objectMMItemBack</object>
+        <object>objects\objectMMItemVideo</object>
+        <object>objects\objectMMItemAudio</object>
+        <object>objects\objectMMItemControlls</object>
       </objects>
       <object>objects\objectMMItemGroup</object>
     </objects>
@@ -176,7 +184,7 @@
     <room>rooms\roomArena</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41887,9083314352</constant>
+    <constant name="GM_build_date">41888,7539546181</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>

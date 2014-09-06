@@ -83,23 +83,28 @@ destroyVector(rotation);
           <argument>
             <kind>1</kind>
             <string>///Move
-var velocitySign;
-var padRotation;
-addVector(velocity, acceleration);
-//move in circle
-if (circleCenterPoint != 0 &amp;&amp; instance_exists(circleCenterPoint)){
-    velocitySign = angularVelocitySign(rotation, velocity);
-    angularVelocity = velocitySign * velocity.value / getPerimeter(circleR) * 360;
-    padRotation = getAngle(360 - image_angle - 90);
-    image_angle = getAngle(image_angle + angularVelocity);
-    setVectorNormByAngle(rotation, padRotation);
-    setVectorNormByVector(velocity, rotation, velocitySign);
-    x = circleCenterPoint.x + cos(degtorad(padRotation + 90)) * circleR;
-    y = circleCenterPoint.y + sin(degtorad(padRotation + 90)) * circleR;
-}
-else{
-     x += getVectorX(velocity);
-     y += getVectorY(velocity);
+if (global.pause == 0){
+    var velocitySign;
+    var padRotation;
+    var angularVelocity = 0;
+    addVector(velocity, acceleration);
+    //move in circle
+    if (circleCenterPoint != 0 &amp;&amp; instance_exists(circleCenterPoint)){
+        velocitySign = angularVelocitySign(rotation, velocity);
+        if (circleR &gt; 0){
+           angularVelocity = velocitySign * velocity.value / getPerimeter(circleR) * 360;
+        }
+        padRotation = getAngle(360 - image_angle - 90);
+        image_angle = getAngle(image_angle + angularVelocity);
+        setVectorNormByAngle(rotation, padRotation);
+        setVectorNormByVector(velocity, rotation, velocitySign);
+        x = circleCenterPoint.x + cos(degtorad(padRotation + 90)) * circleR;
+        y = circleCenterPoint.y + sin(degtorad(padRotation + 90)) * circleR;
+    }
+    else{
+         x += getVectorX(velocity);
+         y += getVectorY(velocity);
+    }
 }
 </string>
           </argument>

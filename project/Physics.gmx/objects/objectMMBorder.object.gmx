@@ -27,14 +27,17 @@
             <kind>1</kind>
             <string>///construct
 event_inherited();
-image_angle = 90;
-image_alpha = 0;
+goalAngle = 90;
+goalSteps = 15;
+defaultGoalSteps = 15;
+image_angle = 270;
+image_alpha = 1;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="0">
+    <event eventtype="3" enumb="1">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -51,10 +54,39 @@ image_alpha = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///increase aplha
-if (image_alpha &lt; 1){
-   image_alpha += 0.005
+            <string>///set velocity border
+if (abs(goalAngle - image_angle) &gt; 0.1){
+   var angleVelocity = abs(goalAngle - image_angle) / (goalSteps / 2);
+   var value = getPerimeter(circleR) * angleVelocity / 360; 
+   setVectorValue(velocity, value);
 }
+else{
+     goalSteps = defaultGoalSteps;
+     goalAngle = image_angle;
+     setVectorValue(velocity, 0);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///move
+event_inherited();
 </string>
           </argument>
         </arguments>

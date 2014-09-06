@@ -30,8 +30,10 @@ event_inherited();
 roomLink = 0;
 index = 0;
 group = 0;
-alphaKoef = 0.2;
-scaleKoef = 0.2;
+image_alpha = 0;
+alphaKoef = 0.25;
+scaleKoef = 0.15;
+trigger = 0;
 </string>
           </argument>
         </arguments>
@@ -54,13 +56,71 @@ scaleKoef = 0.2;
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///trigger event user defined
+if (trigger != 0){
+   var tmp = trigger;
+   trigger = 0;
+   event_perform(ev_other, tmp);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///set opacity and size
 if (group != 0){
     var diff = abs(group.selected - index);
-    image_alpha = 1 - diff * alphaKoef;
+    if (group.active == true &amp;&amp; group.proccessFade == 0){
+       image_alpha = 1 - diff * alphaKoef;
+    }
+    else if (group.proccessFade != 0){
+         var fadeSign = 1;
+         if (group.proccessFade &lt; 0){
+            fadeSign = -1;
+         }
+         image_alpha += (1 - diff * alphaKoef) / group.fade * fadeSign;
+    }
     image_xscale = 1 - diff * scaleKoef;
     image_yscale = 1 - diff * scaleKoef;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///empty function
 </string>
           </argument>
         </arguments>

@@ -78,9 +78,11 @@ event_inherited();
             <kind>1</kind>
             <string>///move
 event_inherited();
-for (var i = 0; i &lt; ds_list_size(circler); i++){
-    circler[| i].x += getVectorX(velocity);
-    circler[| i].y += getVectorY(velocity);
+if (global.pause == 0){
+    for (var i = 0; i &lt; ds_list_size(circler); i++){
+        circler[| i].x += getVectorX(velocity);
+        circler[| i].y += getVectorY(velocity);
+    }
 }
 </string>
           </argument>

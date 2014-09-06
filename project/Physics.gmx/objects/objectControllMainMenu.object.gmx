@@ -27,34 +27,67 @@
             <kind>1</kind>
             <string>///construct
 event_inherited();
+isActiveGroup = -1;
 //animacie kosostvorcove
 createRhomboid = random_range(1000, 1500);
 //obvod a stredovy bod
 circleBorderCenter = instance_create(room_width / 2, room_height + global.outerR / 2, objectCenterPoint);
 circleBorder = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMBorder);
 setCircleCenter(circleBorder, circleBorderCenter, global.outerR);
-//index menu items
-indexGroup = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMItemGroup);
-MMItemGroupConstruct(indexGroup, 1, 150, 15, 90, true);
-setCircleCenter(indexGroup, circleBorderCenter, global.outerR + global.menuItemOffset);
-//item 1 - new game
-var item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemNewGame);
-setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
-setMMItemAngleByLength(item, 0);
-item.group = indexGroup;
-ds_list_add(indexGroup.items, item);
-//item 0 - quit
-item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemQuit);
-setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
-setMMItemAngleByLength(item, indexGroup.itemWidth);
-item.group = indexGroup;
-ds_list_add(indexGroup.items, item);
-//item 2 - options
-item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemOptions);
-setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
-setMMItemAngleByLength(item, -indexGroup.itemWidth);
-item.group = indexGroup;
-ds_list_add(indexGroup.items, item);
+//INDEX
+    //index menu items group
+    var group = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMItemGroup);
+    MMItemGroupConstruct(group, 1, 150, 15, 90, true, 0);
+    setCircleCenter(group, circleBorderCenter, global.outerR + global.menuItemOffset);
+    ds_list_add(global.menuGroups, group);
+    //item 0 - quit
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemQuit);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, group.itemWidth);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 1 - new game
+    var item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemNewGame);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, 0);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 2 - options
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemOptions);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, -group.itemWidth);
+    item.group = group;
+    ds_list_add(group.items, item);
+//OPTIONS
+    //options menu items group
+    group = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMItemGroup);
+    MMItemGroupConstruct(group, 2, 120, 15, 90, false, 0);
+    setCircleCenter(group, circleBorderCenter, global.outerR + global.menuItemOffset);
+    ds_list_add(global.menuGroups, group);
+    //item 0 - back
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemBack);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, group.itemWidth * 2);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 1 - video
+    var item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemAudio);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, group.itemWidth);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 2 - audio
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemVideo);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, 0);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 2 - controlls
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectMMItemControlls);
+    setCircleCenter(item, circleBorderCenter, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, -group.itemWidth);
+    item.group = group;
+    ds_list_add(group.items, item);
 time = current_time;
 </string>
           </argument>
@@ -78,7 +111,7 @@ time = current_time;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///time
+            <string>///generate rhomboid
 //subtract time
 createRhomboid -= (current_time - time);
 time = current_time;
@@ -87,6 +120,61 @@ if (createRhomboid &lt;= 0){
    instance_create(random(room_width), random(room_height), objectMMRhomboid);  
    //reset time
    createRhomboid += random_range(1000, 1500);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///check active group
+isGroupActive = -1;
+for (var i = 0; i &lt; ds_list_size(global.menuGroups); i++){
+    if (global.menuGroups[| i].active == true){
+       isGroupActive = i;
+       break;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///set goal angel
+if (isGroupActive &gt; -1){
+   circleBorder.goalAngle = 90;
+}
+else{
+     circleBorder.goalAngle = 270;
 }
 </string>
           </argument>

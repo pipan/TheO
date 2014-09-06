@@ -28,6 +28,7 @@
             <string>///construct
 static = false;
 centerPoint = instance_create(global.centerX, global.centerY, objectCenterPoint);
+centerPoint = instance_create(global.centerX, global.centerY, objectCenterPoint);
 parts = ds_list_create();
 tmp = instance_create(global.centerX, global.centerY, objectCircleQuarterGoal);
 createCircleQuartre(tmp, 0);
