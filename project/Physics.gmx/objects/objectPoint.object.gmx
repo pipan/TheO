@@ -94,8 +94,8 @@ if (global.pause == 0){
         if (circleR &gt; 0){
            angularVelocity = velocitySign * velocity.value / getPerimeter(circleR) * 360;
         }
-        padRotation = getAngle(360 - image_angle - 90);
         image_angle = getAngle(image_angle + angularVelocity);
+        padRotation = getAngle(360 - image_angle - 90);
         setVectorNormByAngle(rotation, padRotation);
         setVectorNormByVector(velocity, rotation, velocitySign);
         x = circleCenterPoint.x + cos(degtorad(padRotation + 90)) * circleR;
@@ -136,6 +136,10 @@ if (global.status == 1){
     //drawVector(acceleration, x, y, 10);
     draw_set_colour(c_green);
     //drawVector(rotation, x, y, 10);
+    if (circleCenterPoint != 0){
+       draw_set_colour(c_yellow);
+       draw_circle(circleCenterPoint.x, circleCenterPoint.y, circleR, 1);
+    }
 }
 </string>
           </argument>

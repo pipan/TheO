@@ -52,6 +52,7 @@ index = 0;
             <kind>1</kind>
             <string>///back
 global.menuGroups[| 0].active = true;
+global.menuGroups[| 0].proccessFade = 1;
 </string>
           </argument>
         </arguments>

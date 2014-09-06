@@ -31,9 +31,9 @@ isActiveGroup = -1;
 //animacie kosostvorcove
 createRhomboid = random_range(1000, 1500);
 //obvod a stredovy bod
-circleBorderCenter = instance_create(room_width / 2, room_height + global.outerR / 2, objectCenterPoint);
-circleBorder = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMBorder);
-setCircleCenter(circleBorder, circleBorderCenter, global.outerR);
+circleBorderCenter = instance_create(room_width / 2, room_height, objectCenterPoint);
+circleBorder = instance_create(room_width / 2, room_height/2, objectMMBorder);
+setCircleCenter(circleBorder, circleBorderCenter, global.outerR / 2);
 //INDEX
     //index menu items group
     var group = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMItemGroup);

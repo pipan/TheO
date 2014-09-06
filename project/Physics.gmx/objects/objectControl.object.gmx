@@ -32,7 +32,7 @@ global.centerX = 500;
 global.centerY = 350;
 global.outerR = 300;
 global.innerR = 250;
-global.menuItemOffset = 10;
+global.menuItemOffset = 15;
 global.menuGroups = ds_list_create();
 </string>
           </argument>

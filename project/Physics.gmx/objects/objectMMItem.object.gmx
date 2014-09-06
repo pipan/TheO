@@ -32,7 +32,7 @@ index = 0;
 group = 0;
 image_alpha = 0;
 alphaKoef = 0.25;
-scaleKoef = 0.15;
+scaleKoef = 0.20;
 trigger = 0;
 </string>
           </argument>

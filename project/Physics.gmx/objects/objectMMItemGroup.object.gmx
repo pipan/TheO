@@ -184,12 +184,12 @@ else{
           <argument>
             <kind>1</kind>
             <string>///enter or esc
-if (active == true &amp;&amp; confirmed == -1){
+if (active == true &amp;&amp; confirmed == -1 &amp;&amp; proccessFade == 0){
    //enter
    if (keyboard_check(vk_enter)){
       confirmed = goal;
       if (goal &lt; 0){
-         confirmed = goal;
+         confirmed = 0;
       }
       else if (goal &gt;= ds_list_size(items)){
            confirmed = ds_list_size(items) - 1;
