@@ -30,6 +30,20 @@ event_inherited();
 isActiveGroup = -1;
 //animacie kosostvorcove
 createRhomboid = random_range(1000, 1500);
+//animacie kruhov
+    //kruh 1 - vlavo dole
+    var circle = instance_create(30, room_height - 30, objectMMCircle);
+    var circleCenter = instance_create(30, room_height - 30, objectCenterPoint);
+    setCircleCenter(circle, circleCenter, 50);
+    circle.image_xscale = 1.75;
+    circle.image_yscale = 1.75;
+    //kruh 2 - vpravo hore
+    circle = instance_create(room_width, 10, objectMMCircle);
+    circleCenter = instance_create(room_width, 10, objectCenterPoint);
+    setCircleCenter(circle, circleCenter, 30);
+    circle.image_xscale = 1.2;
+    circle.image_yscale = 1.2;
+    setVectorNormByVector(circle.velocity, circle.rotation, -1);
 //obvod a stredovy bod
 circleBorderCenter = instance_create(room_width / 2, room_height, objectCenterPoint);
 circleBorder = instance_create(room_width / 2, room_height/2, objectMMBorder);
@@ -141,41 +155,8 @@ if (createRhomboid &lt;= 0){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///check active group
-isGroupActive = -1;
-for (var i = 0; i &lt; ds_list_size(global.menuGroups); i++){
-    if (global.menuGroups[| i].active == true){
-       isGroupActive = i;
-       break;
-    }
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///set goal angel
-if (isGroupActive &gt; -1){
-   circleBorder.goalAngle = 90;
-}
-else{
-     circleBorder.goalAngle = 270;
-}
+            <string>///active group and goal angle
+event_inherited();
 </string>
           </argument>
         </arguments>

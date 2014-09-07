@@ -41,6 +41,7 @@ currentFade = 0;
 proccessFade = 0;
 confirmed = -1;
 border = 0;
+overridePause = true;
 </string>
           </argument>
         </arguments>

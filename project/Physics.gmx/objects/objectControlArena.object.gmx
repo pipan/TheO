@@ -55,6 +55,34 @@ global.arena.parts[| 0].belongs = global.players[| 0];
 global.arena.parts[| 2].belongs = global.players[| 1];
 time = current_time;
 spawnEnergyTimeDiff = 0;
+//pridanie menu pre pauzi
+circleBorder = instance_create(room_width / 2, room_height/2, objectMMBorder);
+circleBorder.render = false;
+setCircleCenter(circleBorder, global.arena.centerPoint, global.outerR / 2);
+    //menu items
+    //index menu items group
+    var group = instance_create(room_width / 2, room_height - global.outerR / 2, objectMMItemGroup);
+    MMItemGroupConstruct(group, 1, 150, 15, 90, false, 0);
+    setCircleCenter(group, global.arena.centerPoint, global.outerR + global.menuItemOffset);
+    ds_list_add(global.menuGroups, group);
+    //item 0 - resume
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectGMResume);
+    setCircleCenter(item, global.arena.centerPoint, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, group.itemWidth);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 1 - options
+    var item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectGMItemOptions);
+    setCircleCenter(item, global.arena.centerPoint, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, 0);
+    item.group = group;
+    ds_list_add(group.items, item);
+    //item 2 - main menu
+    item = instance_create(room_width / 2, room_height - global.outerR / 2 - global.menuItemOffset, objectGMItemMainMenu);
+    setCircleCenter(item, global.arena.centerPoint, global.outerR + global.menuItemOffset);
+    setMMItemAngleByLength(item, -group.itemWidth);
+    item.group = group;
+    ds_list_add(group.items, item);
 </string>
           </argument>
         </arguments>
@@ -79,7 +107,11 @@ spawnEnergyTimeDiff = 0;
             <kind>1</kind>
             <string>///pause
 if (keyboard_check_released(vk_escape)){
-   global.pause = !global.pause;
+   if (global.pause == false){
+      global.menuGroups[| 0].active = true;
+      global.menuGroups[| 0].proccessFade = 1;
+   }
+   global.pause = true;
 }
 </string>
           </argument>
@@ -113,6 +145,55 @@ if (global.pause == 0){
        energySpawn();
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///set visible menu border
+if (global.pause == true){
+   circleBorder.render = true;
+}
+else{
+     circleBorder.render = false;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///active group and goal angle
+event_inherited();
 </string>
           </argument>
         </arguments>

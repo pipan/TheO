@@ -29,6 +29,8 @@
         <sprite>sprites\spriteMMItemVideo</sprite>
         <sprite>sprites\spriteMMItemAudio</sprite>
         <sprite>sprites\spriteMMItemControlls</sprite>
+        <sprite>sprites\spriteMMItemResume</sprite>
+        <sprite>sprites\spriteMMItemMainMenu</sprite>
       </sprites>
     </sprites>
     <sprite>sprites\spriteEnergy</sprite>
@@ -119,6 +121,7 @@
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shaderTest.shader</shader>
+    <shader type="GLSLES">shaders\shaderPause.shader</shader>
   </shaders>
   <objects name="objects">
     <object>objects\objectPad</object>
@@ -154,12 +157,12 @@
       <object>objects\objectAbiliy</object>
       <object>objects\objectAbilityBlink</object>
     </objects>
-    <objects name="mainMenu">
+    <objects name="menu">
       <object>objects\objectControllMainMenu</object>
       <object>objects\objectMMRhomboid</object>
       <object>objects\objectMMBorder</object>
       <object>objects\objectMMItem</object>
-      <objects name="text">
+      <objects name="mainMenuText">
         <object>objects\objectMMItemNewGame</object>
         <object>objects\objectMMItemOptions</object>
         <object>objects\objectMMItemQuit</object>
@@ -169,6 +172,12 @@
         <object>objects\objectMMItemControlls</object>
       </objects>
       <object>objects\objectMMItemGroup</object>
+      <object>objects\objectMMCircle</object>
+      <objects name="gameMenuText">
+        <object>objects\objectGMResume</object>
+        <object>objects\objectGMItemOptions</object>
+        <object>objects\objectGMItemMainMenu</object>
+      </objects>
     </objects>
     <objects name="energy">
       <object>objects\objectEnergy</object>
@@ -184,7 +193,7 @@
     <room>rooms\roomArena</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41888,9297756366</constant>
+    <constant name="GM_build_date">41889,8604876042</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
