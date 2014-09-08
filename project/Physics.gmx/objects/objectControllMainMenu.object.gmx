@@ -102,6 +102,8 @@ setCircleCenter(circleBorder, circleBorderCenter, global.outerR / 2);
     setMMItemAngleByLength(item, -group.itemWidth);
     item.group = group;
     ds_list_add(group.items, item);
+//sound
+sound_loop(soundMMBackground);
 time = current_time;
 </string>
           </argument>

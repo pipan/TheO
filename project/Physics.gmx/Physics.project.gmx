@@ -4,7 +4,9 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\soundMMBackground</sound>
+  </sounds>
   <sprites name="sprites">
     <sprite>sprites\spriteFullCircle</sprite>
     <sprite>sprites\spriteGappyCircle</sprite>
@@ -193,7 +195,7 @@
     <room>rooms\roomArena</room>
   </rooms>
   <constants number="2">
-    <constant name="GM_build_date">41889,8805391319</constant>
+    <constant name="GM_build_date">41890.8228681829</constant>
     <constant name="GM_version">'1.0.0.0'</constant>
   </constants>
   <help>
